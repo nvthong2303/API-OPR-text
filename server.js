@@ -4,7 +4,7 @@ const fs = require('fs')
 const path = require('path')
 
 const app = express()
-const PORT = 3000
+const PORT = 5003
 const AUTH_TOKEN = 'MI0GxEaeEWmdjvS2S8XFHb'
 // const FILE_PATH = path.join(__dirname, 'text.txt')
 
