@@ -9,6 +9,21 @@ const AUTH_TOKEN = 'MI0GxEaeEWmdjvS2S8XFHb'
 // const FILE_PATH = path.join(__dirname, 'text.txt')
 
 app.use(bodyParser.text())
+// app.use(bodyParser.json({ limit: '100mb' }))
+// app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
+app.use(bodyParser.text({ limit: '100mb' }))
+app.use(
+  bodyParser.raw({
+    limit: '1000mb',
+    inflate: false,
+    parameterLimit: 10000000
+  })
+)
+
+app.use((req, res, next) => {
+  console.log(`Payload size: ${req.headers['content-length']} bytes`)
+  next()
+})
 
 // Middleware kiểm tra authorization
 const checkAuth = (req, res, next) => {
@@ -57,6 +72,11 @@ app.get('/api/v1/read/:filename', checkAuth, (req, res) => {
     }
     res.send(data)
   })
+})
+
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).json({ message: 'Request invalid' })
 })
 
 app.listen(PORT, () => {
