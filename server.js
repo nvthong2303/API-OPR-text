@@ -20,11 +20,6 @@ app.use(
   })
 )
 
-app.use((req, res, next) => {
-  console.log(`Payload size: ${req.headers['content-length']} bytes`)
-  next()
-})
-
 // Middleware kiểm tra authorization
 const checkAuth = (req, res, next) => {
   const token = req.headers['authorization']
