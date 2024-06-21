@@ -72,7 +72,11 @@ app.get('/api/v1/read/:filename', checkAuth, (req, res) => {
 app.post('/', checkAuth, (req, res) => {
   console.log(req.body)
   console.log(JSON.parse(req.body))
-  res.json({ message: 'hehe' })
+  res.json({ message: 'hello world' })
+})
+
+app.get('/', checkAuth, (req, res) => {
+  res.json({ message: 'health-check OK' })
 })
 
 app.use((err, req, res, next) => {
