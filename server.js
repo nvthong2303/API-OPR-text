@@ -9,9 +9,9 @@ const AUTH_TOKEN = 'MI0GxEaeEWmdjvS2S8XFHb'
 // const FILE_PATH = path.join(__dirname, 'text.txt')
 
 app.use(bodyParser.text())
-// app.use(bodyParser.json({ limit: '100mb' }))
+// app.use(bodyParser.json({}))
 // app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
-app.use(bodyParser.text({ limit: '100mb' }))
+// app.use(bodyParser.text({ limit: '100mb' }))
 app.use(
   bodyParser.raw({
     limit: '1000mb',
@@ -67,6 +67,12 @@ app.get('/api/v1/read/:filename', checkAuth, (req, res) => {
     }
     res.send(data)
   })
+})
+
+app.post('/hehe', checkAuth, (req, res) => {
+  console.log(req.body)
+  console.log(JSON.parse(req.body))
+  res.json({ message: 'hehe' })
 })
 
 app.use((err, req, res, next) => {
