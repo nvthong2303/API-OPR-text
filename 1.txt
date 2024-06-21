@@ -1,8 +1,0 @@
-This is the new content of the file.
-This is the new content of the file.
-This is the new content of the file.
-This is the new content of the file.
-This is the new content of the file.
-This is the new content of the file.
-This text will be appended to the file.
-This text will be appended to the file.
