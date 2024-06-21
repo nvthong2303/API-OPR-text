@@ -69,7 +69,7 @@ app.get('/api/v1/read/:filename', checkAuth, (req, res) => {
   })
 })
 
-app.post('/hehe', checkAuth, (req, res) => {
+app.post('/', checkAuth, (req, res) => {
   console.log(req.body)
   console.log(JSON.parse(req.body))
   res.json({ message: 'hehe' })
