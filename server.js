@@ -69,6 +69,19 @@ app.get('/api/v1/read/:filename', checkAuth, (req, res) => {
   })
 })
 
+app.get('/api/v1/files', checkAuth, (req, res) => {
+  const directoryPath = __dirname
+
+  fs.readdir(directoryPath, (err, files) => {
+    if (err) {
+      return res.status(500).json({ error: 'Unable to scan directory' })
+    }
+
+    const txtFiles = files.filter(file => path.extname(file) === '.txt')
+    res.json({ files: txtFiles })
+  })
+})
+
 app.post('/', checkAuth, (req, res) => {
   console.log(req.body)
   console.log(JSON.parse(req.body))
