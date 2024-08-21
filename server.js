@@ -77,7 +77,9 @@ app.get('/api/v1/files', checkAuth, (req, res) => {
       return res.status(500).json({ error: 'Unable to scan directory' })
     }
 
-    const txtFiles = files.filter(file => path.extname(file) === '.txt')
+    const txtFiles = files
+      .filter(file => path.extname(file) === '.txt')
+      .map(file => path.basename(file, '.txt'))
     res.json({ files: txtFiles })
   })
 })
