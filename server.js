@@ -80,7 +80,7 @@ app.get('/api/v1/files', checkAuth, (req, res) => {
     const txtFiles = files
       .filter(file => path.extname(file) === '.txt')
       .map(file => path.basename(file, '.txt'))
-    res.json({ files: txtFiles })
+    res.json({ data: txtFiles })
   })
 })
 
