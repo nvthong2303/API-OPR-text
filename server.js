@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
+const qs = require("qs");
 
 const app = express();
 const PORT = 5003;
@@ -103,18 +104,41 @@ app.use((err, req, res, next) => {
 app.get("/purchase/sms", async (req, res) => {
   try {
     const url = "https://api.smspool.net/purchase/sms";
-
-    const response = await axios({
-      method: "post",
-      url: url,
-      headers: { ...req.headers },
-      // params: req.query,
-      data: req.body,
+    const {
+      key,
+      country,
+      service,
+      pool,
+      max_price,
+      pricing_option,
+      quantity,
+      areacode,
+      exclude,
+      create_token,
+    } = req.query;
+    const formData = qs.stringify({
+      key: key || "",
+      country: country || "US",
+      service: service || "1",
+      pool: pool || "",
+      max_price: max_price || "",
+      pricing_option: pricing_option || "",
+      quantity: quantity || "",
+      areacode: areacode || "[123]",
+      exclude: exclude || "",
+      create_token: create_token || "",
     });
-    console.log("response api Purchase SMS", response);
+
+    const response = await axios.post(url, formData, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Cookie:
+          "__cf_bm=FbaY70IQHlMNB8rH3q_kmPm3qEKqGbjCSl387PqfDf0-1731380231-1.0.1.1-1AKw.jDQAH9KoWUmIobFiuNjdf2YGYhxpgOy3zM0J2GVbZXImMALJ0hk7Z7BxgSX67Ulnj8nHY3ISQd358nT.Q",
+      },
+    });
     res.status(response.status).send(response.data);
   } catch (error) {
-    console.error(error);
+    console.error("Error when call purchase SMS API", error);
     res.status(error.response?.status || 500).send(error.message);
   }
 });
@@ -123,18 +147,22 @@ app.get("/purchase/sms", async (req, res) => {
 app.get("/sms/check", async (req, res) => {
   try {
     const url = "https://api.smspool.net/sms/check";
+    const { orderid, key } = req.query;
 
-    const response = await axios({
-      method: "post",
-      url: url,
-      headers: { ...req.headers },
-      // params: req.query,
-      data: req.body,
+    const formData = qs.stringify({
+      orderid: orderid || "THYJFU8M",
+      key: key || "YA0v4GEouTNYEI4sqWEpKVCCS7eKiufz",
     });
-    console.log("response api SMS Check", response);
+    const response = await axios.post(url, formData, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Cookie:
+          "__cf_bm=fh9d5gKs6ACPq87e0OfybvmK1WmszRwJFxnL0yvUr_k-1731378271-1.0.1.1-e7Zlk6tZ6WQAGAt8o13vMBHQGXEvcnnzqzxQYWQvfWEl5RaDaCPr2dInIgzS1q3rfGoRt94yPiZuWx7fXknrbw",
+      },
+    });
     res.status(response.status).send(response.data);
   } catch (error) {
-    console.error(error);
+    console.error("Error when call check SMS API", error);
     res.status(error.response?.status || 500).send(error.message);
   }
 });
