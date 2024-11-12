@@ -118,13 +118,13 @@ app.get("/purchase/sms", async (req, res) => {
     } = req.query;
     const formData = qs.stringify({
       key: key || "",
-      country: country || "US",
-      service: service || "1",
+      country: country || "",
+      service: service || "",
       pool: pool || "",
       max_price: max_price || "",
       pricing_option: pricing_option || "",
       quantity: quantity || "",
-      areacode: areacode || "[123]",
+      areacode: areacode || "",
       exclude: exclude || "",
       create_token: create_token || "",
     });
@@ -150,8 +150,8 @@ app.get("/sms/check", async (req, res) => {
     const { orderid, key } = req.query;
 
     const formData = qs.stringify({
-      orderid: orderid || "THYJFU8M",
-      key: key || "YA0v4GEouTNYEI4sqWEpKVCCS7eKiufz",
+      orderid: orderid || "",
+      key: key || "",
     });
     const response = await axios.post(url, formData, {
       headers: {
