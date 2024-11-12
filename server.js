@@ -111,7 +111,7 @@ app.get("/purchase/sms", async (req, res) => {
       // params: req.query,
       data: req.body,
     });
-
+    console.log("response api Purchase SMS", response);
     res.status(response.status).send(response.data);
   } catch (error) {
     console.error(error);
@@ -131,7 +131,7 @@ app.get("/sms/check", async (req, res) => {
       // params: req.query,
       data: req.body,
     });
-
+    console.log("response api SMS Check", response);
     res.status(response.status).send(response.data);
   } catch (error) {
     console.error(error);
