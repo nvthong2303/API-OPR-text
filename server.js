@@ -107,7 +107,7 @@ app.get("/purchase/sms", async (req, res) => {
     const response = await axios({
       method: "post",
       url: url,
-      // headers: { ...req.headers, host: undefined },
+      headers: { ...req.headers },
       // params: req.query,
       data: req.body,
     });
@@ -127,7 +127,7 @@ app.get("/sms/check", async (req, res) => {
     const response = await axios({
       method: "post",
       url: url,
-      // headers: { ...req.headers, host: undefined },
+      headers: { ...req.headers },
       // params: req.query,
       data: req.body,
     });
